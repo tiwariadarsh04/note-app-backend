@@ -12,7 +12,7 @@ const noteSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // adds createdAt and updatedAt fields
+    timestamps: true, 
   }
 );
 

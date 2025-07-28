@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { Note } from '../models/noteModel';
 
-// GET all notes for logged-in user
+
 export const getNotes = async (req: Request, res: Response) => {
   const email = (req as any).user.email;
   try {
@@ -12,7 +12,6 @@ export const getNotes = async (req: Request, res: Response) => {
   }
 };
 
-// POST create a new note
 export const createNote = async (req: Request, res: Response) => {
   const email = (req as any).user.email;
   const { content } = req.body;
@@ -28,7 +27,7 @@ export const createNote = async (req: Request, res: Response) => {
   }
 };
 
-// DELETE a note by ID
+
 export const deleteNote = async (req: Request, res: Response) => {
   const email = (req as any).user.email;
   const { id } = req.params;

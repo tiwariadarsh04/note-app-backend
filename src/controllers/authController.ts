@@ -9,7 +9,6 @@ dotenv.config();
 
 const SECRET = process.env.JWT_SECRET || 'supersecret';
 
-// 1️⃣ Send OTP to email
 export const sendOtp = async (req: Request, res: Response) => {
   const { email, name } = req.body;
 
@@ -35,7 +34,7 @@ export const sendOtp = async (req: Request, res: Response) => {
   }
 };
 
-// 2️⃣ Verify OTP and issue JWT token
+
 export const verifyOtpHandler = (req: Request, res: Response) => {
   const { email, otp } = req.body;
 
@@ -55,7 +54,7 @@ export const verifyOtpHandler = (req: Request, res: Response) => {
   });
 };
 
-// 3️⃣ Google Login Handler
+
 export const googleLogin = async (req: Request, res: Response) => {
   const { token } = req.body;
 
