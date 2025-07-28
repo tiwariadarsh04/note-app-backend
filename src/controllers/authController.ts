@@ -3,6 +3,7 @@ import { transporter } from '../config/mail';
 import { saveOtp, verifyOtp } from '../utils/otpStore';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
+import { verifyGoogleToken } from '../utils/verifyGoogleToken'; // 👈 Add this
 
 dotenv.config();
 
@@ -52,4 +53,27 @@ export const verifyOtpHandler = (req: Request, res: Response) => {
     message: 'OTP verified successfully',
     token,
   });
+};
+
+// 3️⃣ Google Login Handler
+export const googleLogin = async (req: Request, res: Response) => {
+  const { token } = req.body;
+
+  try {
+    const user = await verifyGoogleToken(token);
+
+    if (!user.email || !user.name) {
+      return res.status(400).json({ message: 'Invalid Google token' });
+    }
+
+    const jwtToken = jwt.sign({ email: user.email }, SECRET, { expiresIn: '2h' });
+
+    res.json({
+      message: 'Google login successful',
+      token: jwtToken,
+    });
+  } catch (err) {
+    console.error('Google Login Error:', err);
+    res.status(500).json({ message: 'Google login failed' });
+  }
 };
